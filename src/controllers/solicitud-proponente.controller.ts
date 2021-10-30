@@ -1,30 +1,33 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
-import {SolicitudProponente} from '../models';
-import {SolicitudProponenteRepository} from '../repositories';
+import {Keys} from '../config/Keys';
+import {NotificacionCorreo, SolicitudProponente} from '../models';
+import {ProponenteTrabajoRepository, SolicitudProponenteRepository, SolicitudRepository} from '../repositories';
+import {NotificacionesService} from '../services';
 
 export class SolicitudProponenteController {
   constructor(
     @repository(SolicitudProponenteRepository)
-    public solicitudProponenteRepository : SolicitudProponenteRepository,
-  ) {}
+    public solicitudProponenteRepository: SolicitudProponenteRepository,
+    @repository(ProponenteTrabajoRepository)
+    public proponenteTrabajoRepository: ProponenteTrabajoRepository,
+    @service(NotificacionesService)
+    public servicioNotificaciones: NotificacionesService,
+    @repository(SolicitudRepository)
+    public SolicitudRepository: SolicitudRepository
+  ) { }
 
   @post('/solicitud-proponentes')
   @response(200, {
@@ -44,7 +47,18 @@ export class SolicitudProponenteController {
     })
     solicitudProponente: Omit<SolicitudProponente, 'id'>,
   ): Promise<SolicitudProponente> {
-    return this.solicitudProponenteRepository.create(solicitudProponente);
+    let solicitudCreada = await this.solicitudProponenteRepository.create(solicitudProponente);
+    const proponenteTrabajo = await this.proponenteTrabajoRepository.findById(solicitudProponente.proponenteTrabajoId);
+    const solicitud = await this.SolicitudRepository.findById(solicitudProponente.solicitudId);
+
+    if (solicitud) {
+      let datos = new NotificacionCorreo();
+      datos.destinatario = proponenteTrabajo.correo;
+      datos.asunto = Keys.asuntoSolicitud;
+      datos.mensaje = `Hola ${proponenteTrabajo.primerNombre} ${proponenteTrabajo.segundoApellido} su solicitud fue registrada con exito:<br/> Nombre de trabajo: ${solicitud.nombreTrabajo}<br/>fecha de radicacion: ${solicitud.fecha}`;
+      this.servicioNotificaciones.EnviarCorreo(datos);
+    }
+    return solicitudCreada;
   }
 
   @get('/solicitud-proponentes/count')

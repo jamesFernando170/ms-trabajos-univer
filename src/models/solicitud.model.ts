@@ -47,6 +47,11 @@ export class Solicitud extends Entity {
   })
   idModalidad?: number;
 
+  @property({
+    type: 'number',
+  })
+  idAreaInvestigacion?: number;
+
   constructor(data?: Partial<Solicitud>) {
     super(data);
   }
