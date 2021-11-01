@@ -51,7 +51,7 @@ export class SolicitudProponenteController {
     const proponenteTrabajo = await this.proponenteTrabajoRepository.findById(solicitudProponente.proponenteTrabajoId);
     const solicitud = await this.SolicitudRepository.findById(solicitudProponente.solicitudId);
 
-    if (solicitud) {
+    if (solicitudCreada) {
       let datos = new NotificacionCorreo();
       datos.destinatario = proponenteTrabajo.correo;
       datos.asunto = Keys.asuntoSolicitud;

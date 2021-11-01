@@ -1,4 +1,4 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Recordatorio} from './recordatorio.model';
 import {ResultadoEvaluacion} from './resultado-evaluacion.model';
 
@@ -12,10 +12,16 @@ export class InvitacionEvaluar extends Entity {
   id?: number;
 
   @property({
-    type: 'string',
+    type: 'date',
     required: true,
   })
-  feschaRespuesta: string;
+  fechaRespuesta: Date;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  fechaInvitacion: Date;
 
   @property({
     type: 'string',

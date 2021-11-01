@@ -1,30 +1,33 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
-import {InvitacionEvaluar} from '../models';
-import {InvitacionEvaluarRepository} from '../repositories';
+import {Keys} from '../config/Keys';
+import {InvitacionEvaluar, NotificacionCorreo} from '../models';
+import {InvitacionEvaluarRepository, JuradoRepository, SolicitudRepository} from '../repositories';
+import {NotificacionesService} from '../services';
 
 export class InvitacionEvaluarController {
   constructor(
     @repository(InvitacionEvaluarRepository)
-    public invitacionEvaluarRepository : InvitacionEvaluarRepository,
-  ) {}
+    public invitacionEvaluarRepository: InvitacionEvaluarRepository,
+    @service(NotificacionesService)
+    public servicioNotificaciones: NotificacionesService,
+    @repository(JuradoRepository)
+    public JuradoRepository: JuradoRepository,
+    @repository(SolicitudRepository)
+    public SolicitudRepository: SolicitudRepository,
+  ) { }
 
   @post('/invitacion-evaluars')
   @response(200, {
@@ -44,7 +47,18 @@ export class InvitacionEvaluarController {
     })
     invitacionEvaluar: Omit<InvitacionEvaluar, 'id'>,
   ): Promise<InvitacionEvaluar> {
-    return this.invitacionEvaluarRepository.create(invitacionEvaluar);
+    let jurado = await this.JuradoRepository.findById(invitacionEvaluar.idJurado);
+    let solicitud = await this.SolicitudRepository.findById(invitacionEvaluar.idSolicitud);
+    let invitacionEvaluarCreada = await this.invitacionEvaluarRepository.create(invitacionEvaluar);
+
+    if (invitacionEvaluarCreada) {
+      let datos = new NotificacionCorreo();
+      datos.destinatario = jurado.correo;
+      datos.asunto = Keys.asuntoInvitacionEvaluar;
+      datos.mensaje = `Hola ${jurado.nombre} fue invitado a evaluar esta solicitud identificada con el siguiente numero ${solicitud.id}`;
+      this.servicioNotificaciones.EnviarCorreo(datos);
+    }
+    return invitacionEvaluarCreada;
   }
 
   @get('/invitacion-evaluars/count')
