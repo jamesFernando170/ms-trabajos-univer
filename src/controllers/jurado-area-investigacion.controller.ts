@@ -3,9 +3,9 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -14,17 +14,17 @@ import {
   patch,
   post,
   requestBody,
+  response
 } from '@loopback/rest';
 import {
-Jurado,
-JuradoAreaInvestigacion,
-AreaInvestigacion,
+  AreaInvestigacion, ArregloGenerico, Jurado, JuradoAreaInvestigacion
 } from '../models';
-import {JuradoRepository} from '../repositories';
+import {JuradoAreaInvestigacionRepository, JuradoRepository} from '../repositories';
 
 export class JuradoAreaInvestigacionController {
   constructor(
     @repository(JuradoRepository) protected juradoRepository: JuradoRepository,
+    @repository(JuradoAreaInvestigacionRepository) protected JuradoAreaInvestigacionRepository: JuradoAreaInvestigacionRepository,
   ) { }
 
   @get('/jurados/{id}/area-investigacions', {
@@ -106,5 +106,88 @@ export class JuradoAreaInvestigacionController {
     @param.query.object('where', getWhereSchemaFor(AreaInvestigacion)) where?: Where<AreaInvestigacion>,
   ): Promise<Count> {
     return this.juradoRepository.areaInvestigacions(id).delete(where);
+  }
+
+  @post('/jurado-area-investigacion', {
+    responses: {
+      '200': {
+        description: 'create a instance of area de investiagación with a jurado',
+        content: {'application/json': {schema: getModelSchemaRef(JuradoAreaInvestigacion)}},
+      },
+    },
+  })
+  async crearRelacion(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(JuradoAreaInvestigacion, {
+            title: 'NewAreaInvestigacionJurado',
+            exclude: ['id'],
+          }),
+        },
+      },
+    }) datos: Omit<JuradoAreaInvestigacion, 'id'>,
+  ): Promise<JuradoAreaInvestigacion | null> {
+    let registro = await this.JuradoAreaInvestigacionRepository.create(datos);
+    return registro;
+  }
+
+  @post('/asociar-jurado-areas-investigacion/{id}', {
+    responses: {
+      '200': {
+        description: 'create a instance of area investigación with a jurado',
+        content: {'application/json': {schema: getModelSchemaRef(ArregloGenerico)}},
+      },
+    },
+  })
+  async crearRelaciones(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(ArregloGenerico, {}),
+        },
+      },
+    }) datos: ArregloGenerico,
+    @param.path.string('id') juradoId: typeof Jurado.prototype.id
+  ): Promise<Boolean> {
+    if (datos.arregloGenerico.length > 0) {
+      datos.arregloGenerico.forEach(async (areaInvestigacionId: number) => {
+        let existe = await this.JuradoAreaInvestigacionRepository.findOne({
+          where: {
+            areaInvestigacionId: areaInvestigacionId,
+            juradoId: juradoId
+          }
+        })
+        if (!existe) {
+          this.JuradoAreaInvestigacionRepository.create({
+            areaInvestigacionId: areaInvestigacionId,
+            juradoId: juradoId
+          });
+        }
+
+      });
+      return true;
+    }
+    return false;
+  }
+
+  @del('/jurado-area-investigacion/{id}')
+  @response(204, {
+    description: 'juradoAreasInvestigacion DELETE success',
+  })
+  async EliminarRolUsuario(
+    @param.path.string('juradoId') juradoId: number,
+    @param.path.string('areaInvestigacionId') areaInvestigacionId: number): Promise<Boolean> {
+    let reg = await this.JuradoAreaInvestigacionRepository.findOne({
+      where: {
+        areaInvestigacionId: areaInvestigacionId,
+        juradoId: juradoId
+      }
+    });
+    if (reg) {
+      await this.JuradoAreaInvestigacionRepository.deleteById(reg.id);
+      return true
+    }
+    return false;
   }
 }

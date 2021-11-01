@@ -13,7 +13,7 @@ import {
   response
 } from '@loopback/rest';
 import {Keys} from '../config/Keys';
-import {NotificacionCorreo, SolicitudProponente} from '../models';
+import {ArregloGenerico, NotificacionCorreo, Solicitud, SolicitudProponente} from '../models';
 import {ProponenteTrabajoRepository, SolicitudProponenteRepository, SolicitudRepository} from '../repositories';
 import {NotificacionesService} from '../services';
 
@@ -160,5 +160,88 @@ export class SolicitudProponenteController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.solicitudProponenteRepository.deleteById(id);
+  }
+
+  @post('/solicitud-proponente-trabajo', {
+    responses: {
+      '200': {
+        description: 'create a instance of solicitud with a proponente',
+        content: {'application/json': {schema: getModelSchemaRef(SolicitudProponente)}},
+      },
+    },
+  })
+  async crearRelacion(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(SolicitudProponente, {
+            title: 'NewSolicitudProponente',
+            exclude: ['id'],
+          }),
+        },
+      },
+    }) datos: Omit<SolicitudProponente, 'id'>,
+  ): Promise<SolicitudProponente | null> {
+    let registro = await this.solicitudProponenteRepository.create(datos);
+    return registro;
+  }
+
+  @post('/asociar-solicitud-proponentes-trabajos/{id}', {
+    responses: {
+      '200': {
+        description: 'create a instance of solicitud with a proponentes',
+        content: {'application/json': {schema: getModelSchemaRef(ArregloGenerico)}},
+      },
+    },
+  })
+  async crearRelaciones(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(ArregloGenerico, {}),
+        },
+      },
+    }) datos: ArregloGenerico,
+    @param.path.string('id') solicitudId: typeof Solicitud.prototype.id
+  ): Promise<Boolean> {
+    if (datos.arregloGenerico.length > 0) {
+      datos.arregloGenerico.forEach(async (proponenteTrabajoId: number) => {
+        let existe = await this.solicitudProponenteRepository.findOne({
+          where: {
+            proponenteTrabajoId: proponenteTrabajoId,
+            solicitudId: solicitudId
+          }
+        })
+        if (!existe) {
+          this.solicitudProponenteRepository.create({
+            proponenteTrabajoId: proponenteTrabajoId,
+            solicitudId: solicitudId
+          });
+        }
+
+      });
+      return true;
+    }
+    return false;
+  }
+
+  @del('/solicitid-proponente-trabajo/{id}')
+  @response(204, {
+    description: 'SolicitudProponenteTrabajo DELETE success',
+  })
+  async EliminarRolUsuario(
+    @param.path.string('solicitudId') solicitudId: number,
+    @param.path.string('proponenteTrabajoId') proponenteTrabajoId: number): Promise<Boolean> {
+    let reg = await this.solicitudProponenteRepository.findOne({
+      where: {
+        proponenteTrabajoId: proponenteTrabajoId,
+        solicitudId: solicitudId
+      }
+    });
+    if (reg) {
+      await this.solicitudProponenteRepository.deleteById(reg.id);
+      return true
+    }
+    return false;
   }
 }

@@ -17,3 +17,4 @@ export * from './solicitud-comite.model';
 export * from './modalidad.model';
 export * from './solicitud-proponente.model';
 export * from './notificacion-correo.model';
+export * from './arreglo-generico.model';

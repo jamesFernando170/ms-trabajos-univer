@@ -4,27 +4,21 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
-import {DepartamentoProponenteTrabajo} from '../models';
+import {ArregloGenerico, DepartamentoProponenteTrabajo, ProponenteTrabajo} from '../models';
 import {DepartamentoProponenteTrabajoRepository} from '../repositories';
 
 export class DepartamentoProponenteTrabajoController {
   constructor(
     @repository(DepartamentoProponenteTrabajoRepository)
-    public departamentoProponenteTrabajoRepository : DepartamentoProponenteTrabajoRepository,
-  ) {}
+    public departamentoProponenteTrabajoRepository: DepartamentoProponenteTrabajoRepository,
+  ) { }
 
   @post('/departamento-proponente-trabajos')
   @response(200, {
@@ -146,5 +140,88 @@ export class DepartamentoProponenteTrabajoController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.departamentoProponenteTrabajoRepository.deleteById(id);
+  }
+
+  @post('/departamento-proponente-trabajo', {
+    responses: {
+      '200': {
+        description: 'create a instance of departamento with a proponente',
+        content: {'application/json': {schema: getModelSchemaRef(DepartamentoProponenteTrabajo)}},
+      },
+    },
+  })
+  async crearRelacion(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(DepartamentoProponenteTrabajo, {
+            title: 'NewProponenteDepartamento',
+            exclude: ['id'],
+          }),
+        },
+      },
+    }) datos: Omit<DepartamentoProponenteTrabajo, 'id'>,
+  ): Promise<DepartamentoProponenteTrabajo | null> {
+    let registro = await this.departamentoProponenteTrabajoRepository.create(datos);
+    return registro;
+  }
+
+  @post('/asociar-departamento-proponentes-trabajos/{id}', {
+    responses: {
+      '200': {
+        description: 'create a instance of departamento with a proponentes',
+        content: {'application/json': {schema: getModelSchemaRef(ArregloGenerico)}},
+      },
+    },
+  })
+  async crearRelaciones(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(ArregloGenerico, {}),
+        },
+      },
+    }) datos: ArregloGenerico,
+    @param.path.string('id') idProponenteTrabajo: typeof ProponenteTrabajo.prototype.id
+  ): Promise<Boolean> {
+    if (datos.arregloGenerico.length > 0) {
+      datos.arregloGenerico.forEach(async (idDepartamento: number) => {
+        let existe = await this.departamentoProponenteTrabajoRepository.findOne({
+          where: {
+            idDepartamento: idDepartamento,
+            idProponenteTrabajo: idProponenteTrabajo
+          }
+        })
+        if (!existe) {
+          this.departamentoProponenteTrabajoRepository.create({
+            idDepartamento: idDepartamento,
+            idProponenteTrabajo: idProponenteTrabajo
+          });
+        }
+
+      });
+      return true;
+    }
+    return false;
+  }
+
+  @del('/departamento-proponente-trabajo/{id}')
+  @response(204, {
+    description: 'DepartamentoProponenteTrabajo DELETE success',
+  })
+  async EliminarRolUsuario(
+    @param.path.string('idDepartamento') idDepartamento: number,
+    @param.path.string('idProponenteTrabajo') idProponenteTrabajo: number): Promise<Boolean> {
+    let reg = await this.departamentoProponenteTrabajoRepository.findOne({
+      where: {
+        idDepartamento: idDepartamento,
+        idProponenteTrabajo: idProponenteTrabajo
+      }
+    });
+    if (reg) {
+      await this.departamentoProponenteTrabajoRepository.deleteById(reg.id);
+      return true
+    }
+    return false;
   }
 }
