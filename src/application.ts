@@ -10,7 +10,11 @@ import {
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
-import {estrategiaAdminStrategy} from './strategies/estrategia-Admin';
+import {AuxiliarStrategy} from './strategies/Auxiliar';
+import {DirectorStrategy} from './strategies/Director';
+import {AdministratorStrategy} from './strategies/estrategia-administrador';
+import {estrategiaProponente} from './strategies/estrategia-Proponente';
+import {JuradoStrategy} from './strategies/Jurado';
 
 export {ApplicationConfig};
 
@@ -42,7 +46,11 @@ export class App extends BootMixin(
         nested: true,
       },
     };
-    registerAuthenticationStrategy(this, estrategiaAdminStrategy); //Antes de agregar las estrategias, debo primero registrarlas antes de definir el componente que esta en la siguiente linea
+    registerAuthenticationStrategy(this, estrategiaProponente); //Antes de agregar las estrategias, debo primero registrarlas antes de definir el componente que esta en la siguiente linea
+    registerAuthenticationStrategy(this, AdministratorStrategy);
+    registerAuthenticationStrategy(this, AuxiliarStrategy);
+    registerAuthenticationStrategy(this, DirectorStrategy);
+    registerAuthenticationStrategy(this, JuradoStrategy);
     this.component(AuthenticationComponent);
   }
 }
