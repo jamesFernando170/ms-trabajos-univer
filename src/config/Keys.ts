@@ -7,4 +7,13 @@ export namespace Keys {
   export const urlCorreo = "http://localhost:5000/correo"
   export const hashNotificacion = "ABC123"
   export const asuntoInvitacionEvaluar = "Invitacion a evaluar una solicitud";
+
+  //Export para la carga de archivos
+  export const carpetaImagenPersonas = '../../archivos/fotos';
+  export const nombreCampoImagenPersona = 'file';
+  export const extensionesPermitidasIMG: string[] = ['.PNG', '.JPG', '.JPEG', '.SVG'];
+  export const tamMaxImagenPersona = 1024 * 1024;
+  export const carpetaDocumentoPersona = '../../archivos/solicitudes';
+  export const nombreCampoDocumentoPersona = 'file';
+  export const extensionesPermitidasDOC: string[] = ['.PDF', '.DOC', '.DOCX', '.XLS', '.XLSX'];
 }

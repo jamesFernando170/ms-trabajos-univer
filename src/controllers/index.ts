@@ -29,3 +29,4 @@ export * from './tipo-solicitud.controller';
 export * from './tipo-vinculacion.controller';
 export * from './tipos-comite.controller';
 export * from './area-investigacion-solicitud.controller';
+export * from './carga-archivos.controller';
