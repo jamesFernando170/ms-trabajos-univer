@@ -1,6 +1,6 @@
 export namespace Keys {
   export const url_validar_token = "http://localhost:5001/validar-token"
-  export const id_proponente = "61758aa953095c46f8e1daee";
+  export const id_proponente = "6181b97be9a1aa2ce021b95a";
   export const arg_token = "token";
   export const arg_id_validar = "id";
   export const asuntoSolicitud = "Su solicitud fue registrada exitosamente"
@@ -30,11 +30,10 @@ export namespace Keys {
   export const idDeRolJurado = "617b1772c157e7583469f464"; // *Cambiar al "_id" que tenga el Rol de Jurado en la base de datos
   export const arg_id_usuario = "id_usuario";
   export const arg_id_rol = "id_rol";
-  export const rol_administrador = "616dad9c8858b727d83b3390"; //* Cambiar al "_id" de admisitrador que tenga en MongoDB
-  export const rol_jurado = " ";
-  export const rol_director = " ";
-  export const rol_auxiliar = " ";
-  export const rol_proponente = " ";
+  export const rol_administrador = "61820402b9b93c16981e4f54"; //* Cambiar al "_id" de admisitrador que tenga en MongoDB
+  export const rol_jurado = "61820417b9b93c16981e4f55";
+  export const rol_director = "61820430b9b93c16981e4f56";
+  export const rol_auxiliar = "6181c1fbbabc9439087ed18b";
   export const arg_rol_validar = "rol";
 
 }

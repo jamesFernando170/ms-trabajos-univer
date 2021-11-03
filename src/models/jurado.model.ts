@@ -43,7 +43,7 @@ export class Jurado extends Entity {
   })
   clave?: string;
 
-  @hasMany(() => AreaInvestigacion, {through: {model: () => JuradoAreaInvestigacion}})
+  @hasMany(() => AreaInvestigacion, {through: {model: () => JuradoAreaInvestigacion, keyFrom: 'juradoId', keyTo: 'areaInvestigacionId'}})
   areaInvestigacions: AreaInvestigacion[];
 
   @hasMany(() => Solicitud, {through: {model: () => InvitacionEvaluar, keyFrom: 'idJurado', keyTo: 'idSolicitud'}})

@@ -1,18 +1,7 @@
 import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Solicitud} from './solicitud.model';
 
-@model({
-  settings: {
-    foreignKeys: {
-      fk_areaInvestigacion_juradoId: {
-        name: 'fk_areaInvestigacion_juradoId',
-        entity: 'Jurado',
-        entityKey: 'id',
-        foreignKey: 'idJurado',
-      }
-    },
-  },
-})
+@model()
 export class AreaInvestigacion extends Entity {
   @property({
     type: 'number',
@@ -26,11 +15,6 @@ export class AreaInvestigacion extends Entity {
     required: true,
   })
   nombre: string;
-
-  @property({
-    type: 'number',
-  })
-  idJurado?: number;
 
   @hasMany(() => Solicitud, {keyTo: 'idAreaInvestigacion'})
   idSolicitud: Solicitud[];
