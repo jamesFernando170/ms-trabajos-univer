@@ -30,3 +30,4 @@ export * from './tipo-vinculacion.controller';
 export * from './tipos-comite.controller';
 export * from './area-investigacion-solicitud.controller';
 export * from './carga-archivos.controller';
+export * from './descarga-archivos.controller';
