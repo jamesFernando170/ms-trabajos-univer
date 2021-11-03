@@ -2,7 +2,24 @@ import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Recordatorio} from './recordatorio.model';
 import {ResultadoEvaluacion} from './resultado-evaluacion.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_invitacionEvaluar_juradoId: {
+        name: 'fk_invitacionEvaluar_juradoId',
+        entity: 'Jurado',
+        entityKey: 'id',
+        foreignKey: 'idJurado',
+      },
+      fk_invitacionEvaluar_solicitudId: {
+        name: 'fk_invitacionEvaluar_solicitudId',
+        entity: 'Solicitud',
+        entityKey: 'id',
+        foreignKey: 'idSolicitud',
+      },
+    },
+  },
+})
 export class InvitacionEvaluar extends Entity {
   @property({
     type: 'number',

@@ -1,6 +1,17 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_departamento_facultadId: {
+        name: 'fk_departamento_facultadId',
+        entity: 'Facultad',
+        entityKey: 'id',
+        foreignKey: 'idFacultad',
+      }
+    },
+  },
+})
 export class Departamento extends Entity {
   @property({
     type: 'number',

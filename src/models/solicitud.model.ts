@@ -1,8 +1,37 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
-import {TiposComite} from './tipos-comite.model';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {SolicitudComite} from './solicitud-comite.model';
+import {TiposComite} from './tipos-comite.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_solicitud_tipoSolicitud: {
+        name: 'fk_solicitud_tipoSolicitud',
+        entity: 'TipoSolicitud',
+        entityKey: 'id',
+        foreignKey: 'idTipoSolicitud',
+      },
+      fk_solicitud_estadoSolicitudId: {
+        name: 'fk_solicitud_estadoSolicitudId',
+        entity: 'EstadoSolicitud',
+        entityKey: 'id',
+        foreignKey: 'idEstadoSolicitud',
+      },
+      fk_solicitud_modalidadId: {
+        name: 'fk_solicitud_modalidadId',
+        entity: 'Modalidad',
+        entityKey: 'id',
+        foreignKey: 'idModalidad',
+      },
+      fk_solicitud_areaInvestigacionId: {
+        name: 'fk_solicitud_areaInvestigacionId',
+        entity: 'AreaInvestigacion',
+        entityKey: 'id',
+        foreignKey: 'idAreaInvestigacion',
+      },
+    },
+  },
+})
 export class Solicitud extends Entity {
   @property({
     type: 'number',
