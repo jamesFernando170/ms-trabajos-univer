@@ -1,3 +1,5 @@
+/* Controlador que  gestiona la carga de Documentos y fotos, este pone un nombre unico mediante un metodo que le asigna un id unico*/
+
 import {inject} from '@loopback/core';
 import {
   HttpErrors,
