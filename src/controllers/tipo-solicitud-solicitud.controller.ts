@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-  TipoSolicitud,
-  Solicitud,
+  Solicitud, TipoSolicitud
 } from '../models';
 import {TipoSolicitudRepository} from '../repositories';
+
+/*
+Este controlador "Tipo-solicitud-SolicitudController" es el resultado de la relacion de los modelos Solicitud y TiposSolicitud, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Tipo-solicitud-Solicitud
+*/
 
 export class TipoSolicitudSolicitudController {
   constructor(

@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {AreaInvestigacion} from '../models';
 import {AreaInvestigacionRepository} from '../repositories';
 
+/*
+Este controlador "areaInvestigacionController", donde podremos realizar operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, areas de investigacion
+*/
+
 export class AreaInvestigacionController {
   constructor(
     @repository(AreaInvestigacionRepository)
-    public areaInvestigacionRepository : AreaInvestigacionRepository,
-  ) {}
+    public areaInvestigacionRepository: AreaInvestigacionRepository,
+  ) { }
 
   @post('/area-investigacions')
   @response(200, {

@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,18 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   EstadoSolicitud,
-  Solicitud,
+  Solicitud
 } from '../models';
 import {EstadoSolicitudRepository} from '../repositories';
+
+/*
+Este controlador "Estado-solicitudSolicitudController" es el resultado de la relacion de los modelos EstadoSolicitud y Solicitud, donde podremos realizar operaciones
+CRUD, donde podremos agregar, actualizar, eliminar, etc, Estado-solicitudSolicitud
+*/
 
 export class EstadoSolicitudSolicitudController {
   constructor(

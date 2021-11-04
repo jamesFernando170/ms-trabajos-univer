@@ -21,6 +21,11 @@ import {
 } from '../models';
 import {JuradoAreaInvestigacionRepository, JuradoRepository} from '../repositories';
 
+/*
+Este controlador "JuradoAreaInvestigacionController" es el resultado de la relacion de los modelos Jurado y AreaInvestigacion, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, JuradoAreaInvestigacion
+*/
+
 export class JuradoAreaInvestigacionController {
   constructor(
     @repository(JuradoRepository) protected juradoRepository: JuradoRepository,

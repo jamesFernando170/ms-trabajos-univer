@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Jurado} from '../models';
 import {JuradoRepository} from '../repositories';
 
+/*
+Este controlador "JuradoController" donde podremos realizar operaciones CRUD
+*/
+
 export class JuradoController {
   constructor(
     @repository(JuradoRepository)
-    public juradoRepository : JuradoRepository,
-  ) {}
+    public juradoRepository: JuradoRepository,
+  ) { }
 
   @post('/jurados')
   @response(200, {

@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {TipoVinculacion} from '../models';
 import {TipoVinculacionRepository} from '../repositories';
 
+/*
+Este controlador "TipoVinculacionController" donde podremos realizar operaciones CRUD
+*/
+
 export class TipoVinculacionController {
   constructor(
     @repository(TipoVinculacionRepository)
-    public tipoVinculacionRepository : TipoVinculacionRepository,
-  ) {}
+    public tipoVinculacionRepository: TipoVinculacionRepository,
+  ) { }
 
   @post('/tipo-vinculacions')
   @response(200, {

@@ -1,4 +1,5 @@
 # Controllers
+En esta carpeta encontraremos los "controllers" de cada una de nuestras entidades, los cuales son los encargados de realizar funciones CRUD (Crear, Leer, Actualizar y Borrar)
 
 This directory contains source files for the controllers exported by this app.
 

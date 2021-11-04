@@ -46,7 +46,8 @@ export class App extends BootMixin(
         nested: true,
       },
     };
-    registerAuthenticationStrategy(this, estrategiaProponente); //Antes de agregar las estrategias, debo primero registrarlas antes de definir el componente que esta en la siguiente linea
+    //Antes de agregar las estrategias, debo primero registrarlas antes de definir el componente
+    registerAuthenticationStrategy(this, estrategiaProponente);
     registerAuthenticationStrategy(this, AdministratorStrategy);
     registerAuthenticationStrategy(this, AuxiliarStrategy);
     registerAuthenticationStrategy(this, DirectorStrategy);

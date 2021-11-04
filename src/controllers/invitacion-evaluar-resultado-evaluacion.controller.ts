@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,18 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   InvitacionEvaluar,
-  ResultadoEvaluacion,
+  ResultadoEvaluacion
 } from '../models';
 import {InvitacionEvaluarRepository} from '../repositories';
+
+/*
+Este controlador "Invitacion-Evaluar-ResultadoEvaluacionController" es el resultado de la relacion de los modelos InvitacionEvaluar y ResultadoEvaluacion, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Invitacion-Evaluar-ResultadoEvaluacion
+*/
 
 export class InvitacionEvaluarResultadoEvaluacionController {
   constructor(

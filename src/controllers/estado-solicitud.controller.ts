@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {EstadoSolicitud} from '../models';
 import {EstadoSolicitudRepository} from '../repositories';
 
+/*
+Este controlador "EstadoSolicitudController", donde podremos realizar operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, EstadoSolicitud
+*/
+
 export class EstadoSolicitudController {
   constructor(
     @repository(EstadoSolicitudRepository)
-    public estadoSolicitudRepository : EstadoSolicitudRepository,
-  ) {}
+    public estadoSolicitudRepository: EstadoSolicitudRepository,
+  ) { }
 
   @post('/estado-solicituds')
   @response(200, {

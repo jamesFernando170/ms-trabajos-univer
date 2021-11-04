@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,18 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   InvitacionEvaluar,
-  Recordatorio,
+  Recordatorio
 } from '../models';
 import {InvitacionEvaluarRepository} from '../repositories';
+
+/*
+Este controlador "Invitacion-EvaluarRecordatorioController" es el resultado de la relacion de los modelos InvitacionEvaluar y Recordatorio, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, InvitacionEvaluarRecordatorio
+*/
 
 export class InvitacionEvaluarRecordatorioController {
   constructor(

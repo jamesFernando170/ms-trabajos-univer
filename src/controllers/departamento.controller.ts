@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Departamento} from '../models';
 import {DepartamentoRepository} from '../repositories';
 
+/*
+Este controlador "DepartamentoController", donde podremos realizar operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, departamentos
+*/
+
 export class DepartamentoController {
   constructor(
     @repository(DepartamentoRepository)
-    public departamentoRepository : DepartamentoRepository,
-  ) {}
+    public departamentoRepository: DepartamentoRepository,
+  ) { }
 
   @post('/departamentos')
   @response(200, {

@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Facultad} from '../models';
 import {FacultadRepository} from '../repositories';
 
+/*
+Este controlador "FacultadController", donde podremos realizar operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Facultad
+*/
+
 export class FacultadController {
   constructor(
     @repository(FacultadRepository)
-    public facultadRepository : FacultadRepository,
-  ) {}
+    public facultadRepository: FacultadRepository,
+  ) { }
 
   @post('/facultads')
   @response(200, {

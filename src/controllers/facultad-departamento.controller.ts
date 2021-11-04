@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-  Facultad,
-  Departamento,
+  Departamento, Facultad
 } from '../models';
 import {FacultadRepository} from '../repositories';
+
+/*
+Este controlador "FacultadDepartamentoController" es el resultado de la relacion de los modelos Facultad y Departamento, donde podremos realizar operaciones
+CRUD, donde podremos agregar, actualizar, eliminar, etc, FacultadDepartamento
+*/
 
 export class FacultadDepartamentoController {
   constructor(

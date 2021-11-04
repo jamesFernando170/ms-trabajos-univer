@@ -14,6 +14,10 @@ import {
 import {ProponenteTrabajo} from '../models';
 import {ProponenteTrabajoRepository} from '../repositories';
 
+/*
+Este controlador "Proponente-trabajo-Controller" donde podremos realizar operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Proponente-trabajo
+*/
+
 export class ProponenteTrabajoController {
   constructor(
     @repository(ProponenteTrabajoRepository)

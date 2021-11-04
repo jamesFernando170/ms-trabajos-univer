@@ -3,9 +3,9 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -13,14 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-ProponenteTrabajo,
-SolicitudProponente,
-Solicitud,
+  ProponenteTrabajo, Solicitud
 } from '../models';
 import {ProponenteTrabajoRepository} from '../repositories';
+
+/*
+Este controlador "Proponente-trabajo-SolicitudController" es el resultado de la relacion de los modelos ProponenteTrabajo y Solicitud, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Proponente-trabajo-Solicitud
+*/
 
 export class ProponenteTrabajoSolicitudController {
   constructor(

@@ -1,3 +1,8 @@
+/*
+Variables que se usamos en cualquier comento y no cambian, siendonos muy utiles por ejemplo a la hora de necesitar la url de otros microservicios o incluso los tipos de
+archivos
+*/
+
 export namespace Keys {
   export const url_validar_token = "http://localhost:5001/validar-token"
   export const id_proponente = "6181b97be9a1aa2ce021b95a";

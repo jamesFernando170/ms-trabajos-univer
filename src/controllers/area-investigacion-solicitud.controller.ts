@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   AreaInvestigacion,
-  Solicitud,
+  Solicitud
 } from '../models';
 import {AreaInvestigacionRepository} from '../repositories';
+
+/*
+Este controlador "areaInvestigacionSolicitudController" es el resultado de la relacion de los modelos AreaInvestigacion y Solicitud, donde podremos realizar operaciones CRUD
+*/
 
 export class AreaInvestigacionSolicitudController {
   constructor(

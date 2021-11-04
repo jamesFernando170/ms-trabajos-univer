@@ -4,27 +4,26 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {SolicitudComite} from '../models';
 import {SolicitudComiteRepository} from '../repositories';
 
+/*
+Este controlador "SolicitudComiteController" es el resultado de la relacion de los modelos Solicitud y Comite, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, SolicitudComite
+*/
+
 export class SolicitudComiteController {
   constructor(
     @repository(SolicitudComiteRepository)
-    public solicitudComiteRepository : SolicitudComiteRepository,
-  ) {}
+    public solicitudComiteRepository: SolicitudComiteRepository,
+  ) { }
 
   @post('/solicitud-comites')
   @response(200, {

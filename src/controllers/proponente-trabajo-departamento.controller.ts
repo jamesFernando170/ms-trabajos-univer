@@ -3,9 +3,9 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -13,14 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-ProponenteTrabajo,
-DepartamentoProponenteTrabajo,
-Departamento,
+  Departamento, ProponenteTrabajo
 } from '../models';
 import {ProponenteTrabajoRepository} from '../repositories';
+
+/*
+Este controlador "Proponente-trabajo-departamentoController" es el resultado de la relacion de los modelos ProponenteTrabajo y Departamento, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Proponente-trabajo-departamento
+*/
 
 export class ProponenteTrabajoDepartamentoController {
   constructor(

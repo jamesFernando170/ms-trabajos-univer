@@ -17,6 +17,11 @@ import {ArregloGenerico, NotificacionCorreo, Solicitud, SolicitudProponente} fro
 import {ProponenteTrabajoRepository, SolicitudProponenteRepository, SolicitudRepository} from '../repositories';
 import {NotificacionesService} from '../services';
 
+/*
+Este controlador "SolicitudProponeneteController" es el resultado de la relacion de los modelos Solicitud y Proponente, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Proponente-trabajo-departamento
+*/
+
 export class SolicitudProponenteController {
   constructor(
     @repository(SolicitudProponenteRepository)
@@ -29,6 +34,10 @@ export class SolicitudProponenteController {
     public SolicitudRepository: SolicitudRepository
   ) { }
 
+  /*
+  En el momento en que un Proponente va a registrar una solicitud, a este se le enviara un correo electronico diciendole que su solicitud acaba de ser registrada y haciendole
+  un resumen de dicha solicitud, todo esto mediante el microservicio de notificaciones
+  */
   @post('/solicitud-proponentes')
   @response(200, {
     description: 'SolicitudProponente model instance',
@@ -47,6 +56,11 @@ export class SolicitudProponenteController {
     })
     solicitudProponente: Omit<SolicitudProponente, 'id'>,
   ): Promise<SolicitudProponente> {
+    /*
+    Importamos los repositorios tanto de proponenteTrabajo como de solicitud, para asi filtrarlos por ID y obtener respectivamente su informacion basica y poder acceder a cada uno
+    de ellas, sirviendonos para enviarle un resumen de que la solicitud fue registrada al proponente que registro una solicitud y posteriormente, a traves del microservicio de notificaciones
+    le enviamos un mensaje
+    */
     let solicitudCreada = await this.solicitudProponenteRepository.create(solicitudProponente);
     const proponenteTrabajo = await this.proponenteTrabajoRepository.findById(solicitudProponente.proponenteTrabajoId);
     const solicitud = await this.SolicitudRepository.findById(solicitudProponente.solicitudId);

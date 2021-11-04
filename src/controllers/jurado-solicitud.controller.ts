@@ -3,9 +3,9 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -13,14 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-Jurado,
-InvitacionEvaluar,
-Solicitud,
+  Jurado, Solicitud
 } from '../models';
 import {JuradoRepository} from '../repositories';
+
+/*
+Este controlador "JuradoSolicitudController" es el resultado de la relacion de los modelos Juardo y Solicitud, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, JuradoSolicitud
+*/
 
 export class JuradoSolicitudController {
   constructor(

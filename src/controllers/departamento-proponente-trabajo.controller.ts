@@ -14,6 +14,11 @@ import {
 import {ArregloGenerico, DepartamentoProponenteTrabajo, ProponenteTrabajo} from '../models';
 import {DepartamentoProponenteTrabajoRepository} from '../repositories';
 
+/*
+Este controlador "DepartamentoProponenteTrabajoController" es el resultado de la relacion de los modelos Departamento y ProponenteTrabajo, donde podremos realizar operaciones
+CRUD, donde podremos agregar, actualizar, eliminar, etc, DepartamentoProponenteTrabajo
+*/
+
 export class DepartamentoProponenteTrabajoController {
   constructor(
     @repository(DepartamentoProponenteTrabajoRepository)

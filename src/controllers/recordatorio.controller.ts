@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Recordatorio} from '../models';
 import {RecordatorioRepository} from '../repositories';
 
+/*
+Este controlador "RecordatorioController" donde podremos realizar operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, Recordatorio
+*/
+
 export class RecordatorioController {
   constructor(
     @repository(RecordatorioRepository)
-    public recordatorioRepository : RecordatorioRepository,
-  ) {}
+    public recordatorioRepository: RecordatorioRepository,
+  ) { }
 
   @post('/recordatorios')
   @response(200, {

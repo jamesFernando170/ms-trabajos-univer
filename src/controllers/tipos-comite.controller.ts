@@ -4,27 +4,25 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {TiposComite} from '../models';
 import {TiposComiteRepository} from '../repositories';
 
+/*
+Este controlador "TiposComiteController" donde podremos realizar operaciones CRUD
+*/
+
 export class TiposComiteController {
   constructor(
     @repository(TiposComiteRepository)
-    public tiposComiteRepository : TiposComiteRepository,
-  ) {}
+    public tiposComiteRepository: TiposComiteRepository,
+  ) { }
 
   @post('/tipos-comites')
   @response(200, {

@@ -3,9 +3,9 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -13,14 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-Solicitud,
-SolicitudComite,
-TiposComite,
+  Solicitud, TiposComite
 } from '../models';
 import {SolicitudRepository} from '../repositories';
+
+/*
+Este controlador "SolicitudTiposComiteController" es el resultado de la relacion de los modelos solicitud y tiposComite, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, SolicitudTiposComite
+*/
 
 export class SolicitudTiposComiteController {
   constructor(

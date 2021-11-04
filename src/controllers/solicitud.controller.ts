@@ -14,6 +14,10 @@ import {
 import {Solicitud} from '../models';
 import {SolicitudRepository} from '../repositories';
 
+/*
+Este controlador "SolicitudController" donde podremos realizar operaciones CRUD
+*/
+
 export class SolicitudController {
   constructor(
     @repository(SolicitudRepository)

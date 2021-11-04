@@ -8,7 +8,8 @@ export class NotificacionesService {
   constructor(/* Add @inject to inject parameters */) { }
 
   /*
-   * Add service methods here
+   Este metodo nos sirve para enviar correos, realizandose mediante el uso del microsericio de notificaciones que se encuentra hecho en python, le enviamos la url que se
+   encuentra en la carpeta Config/Keys, ahi tenemos algunas variables que podemos volver a reutilizar
    */
   EnviarCorreo(datos: NotificacionCorreo
   ) {

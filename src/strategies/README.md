@@ -1,0 +1,1 @@
+Estas estrategias nos sirven para autenticar un usuario, donde cada estrategia tendra un nombre unico. Cada estrategia nos recibe un token y mediante "parseBearerToken" lo parsea, si este token que acaba de llegar es true, nos validara un token mediante el microservicio de tokens

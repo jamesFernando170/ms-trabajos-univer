@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,18 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   Modalidad,
-  Solicitud,
+  Solicitud
 } from '../models';
 import {ModalidadRepository} from '../repositories';
+
+/*
+Este controlador "ModalidadSolicitudController" es el resultado de la relacion de los modelos Modelo y Solicitud, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, ModalidadSolicitud
+*/
 
 export class ModalidadSolicitudController {
   constructor(

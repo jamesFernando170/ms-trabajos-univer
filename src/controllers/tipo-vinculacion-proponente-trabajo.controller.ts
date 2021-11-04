@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,13 +13,17 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
-  TipoVinculacion,
-  ProponenteTrabajo,
+  ProponenteTrabajo, TipoVinculacion
 } from '../models';
 import {TipoVinculacionRepository} from '../repositories';
+
+/*
+Este controlador "TipoVinculacion-ProponenteTrabajoController" es el resultado de la relacion de los modelos tipoVinculacion y ProponenteTrabajo, donde podremos realizar
+operaciones CRUD, donde podremos agregar, actualizar, eliminar, etc, TipoVinculacion-ProponenteTrabajo
+*/
 
 export class TipoVinculacionProponenteTrabajoController {
   constructor(
