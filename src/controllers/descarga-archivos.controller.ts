@@ -1,4 +1,4 @@
-
+/* Controlador que gestioma de descarga de archivos existentes en la base de datos, pero este garantiza que se busque unicamente el que se pide y el tipo de documento que es */
 import {inject} from '@loopback/core';
 import {
   get,
